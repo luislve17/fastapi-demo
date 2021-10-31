@@ -1,6 +1,21 @@
 version: "3.8"
 
 services:
+  db:
+      build:
+        context: .
+        dockerfile: ./db/deployment/db.Dockerfile
+      restart: on-failure
+      env_file:
+        - ./db/config/db.dev.env
+      expose:
+        - "5432"
+      ports:
+        - "5432:5432"
+      hostname: db
+      volumes:
+        - pgdata:/var/lib/postgresql/data/:cached
+
   backend:
     build:
       context: .
@@ -15,3 +30,8 @@ services:
     hostname: backend
     volumes:
       - ./backend/source:/source:cached
+    depends_on:
+      - db
+
+volumes:
+  pgdata:
