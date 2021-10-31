@@ -5,10 +5,10 @@ def test_endpoint_path():
     current_path = get_endpoint("hello_world")
     assert current_path == expected_path
 
-def test_helloworld_msg():
-    hello_world_response = consume_endpoint('hello_world')
-    hello_world_data = hello_world_response.json()
-    assert len(hello_world_data) == 1
-    for key, val in hello_world_data.items():
+def test_response_msg():
+    response = consume_endpoint('hello_world')
+    data = response.json()
+    assert len(data) == 1
+    for key, val in data.items():
         assert key == "Hello"
         assert val == "World"

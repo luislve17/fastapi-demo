@@ -1,5 +1,6 @@
 import re
 from typing import Optional
+from requests.models import Response
 from fastapi.testclient import TestClient
 
 from main import app
@@ -17,5 +18,4 @@ def get_endpoint(endpoint_name:str) -> Optional[str]:
 
 def consume_endpoint(endpoint_name:str) -> Response:
     response = client.get(app.url_path_for(endpoint_name))
-    print(type(response))
     return response
